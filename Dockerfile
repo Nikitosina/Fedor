@@ -12,5 +12,5 @@ RUN mkdir /app/bin
 RUN mv `swift build --show-bin-path -c release` /app/bin
 
 # 5
-ENTRYPOINT ./bin/release/TradingBot
+ENTRYPOINT ./bin/release/Fedor
 
