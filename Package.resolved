@@ -1,5 +1,5 @@
 {
-  "originHash" : "6c23a1b1b3b0157604cffdf2a3375e40f9ba124eecf69af7ce049b1e53d873d2",
+  "originHash" : "b0d9738acbc858c5a88a6fa10e7686e4b11b936bfbfe51c73e6b47513d220ec7",
   "pins" : [
     {
       "identity" : "async-http-client",
@@ -219,11 +219,11 @@
     },
     {
       "identity" : "telegram-bot-swift",
-      "kind" : "localSourceControl",
-      "location" : "/Users/nikitarat/Projects/Fedor/telegram-bot-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/rapierorg/telegram-bot-swift.git",
       "state" : {
-        "revision" : "c03186fdbde69be648be33c57793a2d83c5a8256",
-        "version" : "2.1.2"
+        "revision" : "7b1144b867ca962e10b1de21c32ab7156e4a83ce",
+        "version" : "2.1.3"
       }
     }
   ],
