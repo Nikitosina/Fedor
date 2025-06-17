@@ -58,10 +58,12 @@ func storeFeedback(_ request: Request, context: any RequestContext) async throws
         return Response(status: .badRequest)
     }
     let logsDoc = InputFile(filename: "logs.txt", data: feedback.logs.data(using: .utf8) ?? Data())
-    let chatLogsDoc = InputFile(filename: "chatLogs.txt", data: feedback.chatLogs.data(using: .utf8) ?? Data())
-    let messageContent = "UserID: \(userId)\nComment: \(feedback.comment)"
+    if let chatLogs = feedback.chatLogs {
+        let chatLogsDoc = InputFile(filename: "chatLogs.txt", data: chatLogs.data(using: .utf8) ?? Data())
+        tgBot.sendDocumentSync(chatId: .chat(chatId), document: .inputFile(chatLogsDoc))
+    }
 
-    tgBot.sendDocumentSync(chatId: .chat(chatId), document: .inputFile(chatLogsDoc))
+    let messageContent = "UserID: \(userId)\nComment: \(feedback.comment)"
     tgBot.sendDocumentSync(chatId: .chat(chatId), document: .inputFile(logsDoc), caption: messageContent)
     return Response(status: .ok)
 }
@@ -69,5 +71,5 @@ func storeFeedback(_ request: Request, context: any RequestContext) async throws
 struct Feedback: Codable {
     let comment: String
     let logs: String
-    let chatLogs: String
+    let chatLogs: String?
 }
