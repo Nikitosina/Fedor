@@ -57,14 +57,17 @@ func storeFeedback(_ request: Request, context: any RequestContext) async throws
     guard let feedback = try? await request.decode(as: Feedback.self, context: context) else {
         return Response(status: .badRequest)
     }
-    let document = InputFile(filename: "logs.txt", data: feedback.logs.data(using: .utf8) ?? Data())
+    let logsDoc = InputFile(filename: "logs.txt", data: feedback.logs.data(using: .utf8) ?? Data())
+    let chatLogsDoc = InputFile(filename: "chatLogs.txt", data: feedback.chatLogs.data(using: .utf8) ?? Data())
     let messageContent = "UserID: \(userId)\nComment: \(feedback.comment)"
 
-    tgBot.sendDocumentSync(chatId: .chat(chatId), document: .inputFile(document), caption: messageContent)
+    tgBot.sendDocumentSync(chatId: .chat(chatId), document: .inputFile(chatLogsDoc))
+    tgBot.sendDocumentSync(chatId: .chat(chatId), document: .inputFile(logsDoc), caption: messageContent)
     return Response(status: .ok)
 }
 
 struct Feedback: Codable {
     let comment: String
     let logs: String
+    let chatLogs: String
 }
